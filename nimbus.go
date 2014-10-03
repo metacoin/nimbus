@@ -30,21 +30,29 @@ func WordCount(s string) map[string]int {
 
 // trim a map that is a representation of a word cloud
 func TrimWordCountMap(untrimmedWordCloud map[string]int, n int) map[string]int {
+
+	// create a slice of nimbus
 	var nimbusSlice = []nimbus{}
+
+	// add each nimbus to the slice
 	for k, v := range untrimmedWordCloud {
 		nimbusSlice = append(nimbusSlice, nimbus{Word: k, Count: v})
 	}
 
-	// sort by count
-	sort.Sort(sort.Reverse(ByCount(nimbusSlice)))
+	// do some length calculations
+	nsLength := len(nimbusSlice)
+	newLength := nsLength - n
 
 	// ensure no out-of-bounds error
-	if n > len(nimbusSlice) {
+	if newLength <= 0 {
 		return untrimmedWordCloud
 	}
 
+	// sort by count
+	sort.Sort(ByCount(nimbusSlice))
+
 	// cut off everything after the first n elements of the slice
-	nimbusSlice = nimbusSlice[:n]
+	nimbusSlice = nimbusSlice[newLength:]
 
 	// make a new map that contains the slice data, return it
 	m := make(map[string]int)
