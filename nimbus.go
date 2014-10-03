@@ -1,7 +1,6 @@
 package nimbus
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 )
@@ -35,11 +34,14 @@ func TrimWordCountMap(unsortedWordCloud map[string]int, n int) map[string]int {
 	for k, v := range unsortedWordCloud {
 		nimbusSlice = append(nimbusSlice, nimbus{Word: k, Count: v})
 	}
-	fmt.Println("made a slice of nimbus")
-	fmt.Println(nimbusSlice)
 
 	// sort by count
 	sort.Sort(sort.Reverse(ByCount(nimbusSlice)))
+
+	// ensure no out-of-bounds error
+	if n > len(nimbusSlice) {
+		return unsortedWordCloud
+	}
 
 	// cut off everything after the first n elements of the slice
 	nimbusSlice = nimbusSlice[:n]
