@@ -28,14 +28,29 @@ func WordCount(s string) map[string]int {
 	return wordMap
 }
 
+// check if a string is within a slice
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
+
 // trim a map that is a representation of a word cloud
-func TrimWordCountMap(untrimmedWordCloud map[string]int, n int) map[string]int {
+func TrimWordCountMap(untrimmedWordCloud map[string]int, n int, filterStopWords bool) map[string]int {
 
 	// create a slice of nimbus
 	var nimbusSlice = []nimbus{}
 
-	// add each nimbus to the slice
+	// add each nimbus to the slice, if it isn't part of stopwords
 	for k, v := range untrimmedWordCloud {
+		if filterStopWords == true {
+			if stringInSlice(k, StopWords) == true {
+				continue
+			}
+		}
 		nimbusSlice = append(nimbusSlice, nimbus{Word: k, Count: v})
 	}
 
