@@ -28,10 +28,10 @@ func WordCount(s string) map[string]int {
 	return wordMap
 }
 
-// trim an unsorted word cloud map
-func TrimWordCountMap(unsortedWordCloud map[string]int, n int) map[string]int {
+// trim a map that is a representation of a word cloud
+func TrimWordCountMap(untrimmedWordCloud map[string]int, n int) map[string]int {
 	var nimbusSlice = []nimbus{}
-	for k, v := range unsortedWordCloud {
+	for k, v := range untrimmedWordCloud {
 		nimbusSlice = append(nimbusSlice, nimbus{Word: k, Count: v})
 	}
 
