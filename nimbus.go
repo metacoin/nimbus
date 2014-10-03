@@ -40,7 +40,7 @@ func TrimWordCountMap(untrimmedWordCloud map[string]int, n int) map[string]int {
 
 	// ensure no out-of-bounds error
 	if n > len(nimbusSlice) {
-		return unsortedWordCloud
+		return untrimmedWordCloud
 	}
 
 	// cut off everything after the first n elements of the slice
